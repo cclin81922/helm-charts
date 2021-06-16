@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netutil-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netutil
+      component: server
+  template:
+    metadata:
+      labels:
+        app: netutil
+        component: server
+    spec:
+      containers:
+      - name: netutil
+        image: jimlintw/netutil:v20210616
+        env:
+        - name: PROTOCOL
+          value: tcp
+        - name: PORT
+          value: "30300"
+        command: ["/opt/server.sh"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: netutil-server
+spec:
+  type: NodePort
+  selector:
+    app: netutil
+    component: server
+  ports:
+    - protocol: TCP
+      port: 30300
+      targetPort: 30300
+      nodePort: 30300

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netutil-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netutil
+      component: client
+  template:
+    metadata:
+      labels:
+        app: netutil
+        component: client
+    spec:
+      containers:
+      - name: netutil
+        image: jimlintw/netutil:v20210616
+        env:
+        - name: PROTOCOL
+          value: tcp
+        - name: PORT
+          value: "30300"
+        - name: IP
+          value: "10.106.206.57"
+        command: ["/opt/client.sh"]
