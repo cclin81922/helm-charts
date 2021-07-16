@@ -1,0 +1,59 @@
+需要異動的檔案
+
+overlays/clusters/docker-desktop-gateway/deployment-jigasi.yaml [add]
+overlays/clusters/docker-desktop-gateway/deployment.yaml        [update]
+overlays/clusters/docker-desktop-gateway/kustomization.yaml     [update]
+overlays/clusters/docker-desktop-gateway/launch-clean-dev.sh    [update]
+
+異動內容 - deployment-jigasi.yaml
+@@ -13,11 +13,33 @@ spec:
+               value: "https://localhost.cclin.work"
+             - name: UI_BRAND_NAME
+               value: CC Meet
++            - name: DIALIN_NUMBERS_URL
++              value: https://raw.githubusercontent.com/cclin81922/helm-charts/main/dialin.json
++            - name: CONFCODE_URL
++              value: https://jitsi-api.jitsi.net/conferenceMapper
++#             - name: DIALOUT_AUTH_URL
++#               value:
++#             - name: DIALOUT_CODES_URL
++#               value:  
+ 
+         - name: prosody
+           env:
+             - name: PUBLIC_URL
+               value: "https://localhost.cclin.work"
++            - name: JIGASI_XMPP_USER
++              value: jigasi
++            - name: JIGASI_XMPP_PASSWORD
++              valueFrom:
++                secretKeyRef:
++                  name: jitsi-config
++                  key: JIGASI_XMPP_PASSWORD
++
++        - name: jicofo
++          env:
++            - name: JIGASI_BREWERY_MUC
++              value: jigasibrewery
++            - name: JIGASI_SIP_URI
++              value: cclinax@sip2sip.info
+
+
+異動內容 - kustomization.yaml
+
+@@ -10,6 +10,7 @@ bases:
+ 
+ resources:
+ - pvc.yaml
++- deployment-jigasi.yaml
+ 
+ patchesStrategicMerge:
+ - deployment.yaml
+@@ -43,6 +44,7 @@ secretGenerator:
+   - JICOFO_COMPONENT_SECRET=my-password
+   - JICOFO_AUTH_PASSWORD=my-password
+   - JVB_AUTH_PASSWORD=my-password
++  - JIGASI_XMPP_PASSWORD=my-password
+ - name: jitsi-secret-tls
+   files:
+   - tls/tls.crt
