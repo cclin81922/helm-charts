@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: jitsi
+    k8s-app-component: jigasi
+  name: jitsi-jigasi
+  namespace: jitsi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      k8s-app: jitsi
+      k8s-app-component: jigasi
+  template:
+    metadata:
+      labels:
+        k8s-app: jitsi
+        k8s-app-component: jigasi
+    spec:
+      containers:
+        - name: jigasi
+          image: jitsi/jigasi:stable-5870
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: XMPP_SERVER
+            value: xmpp
+          - name: XMPP_DOMAIN
+            value: meet.jitsi
+          - name: XMPP_AUTH_DOMAIN
+            value: auth.meet.jitsi
+          - name: XMPP_INTERNAL_MUC_DOMAIN
+            value: internal-muc.meet.jitsi
+          - name: XMPP_MUC_DOMAIN
+            value: muc.meet.jitsi
+          - name: JIGASI_XMPP_USER
+            value: jigasi
+          - name: JIGASI_XMPP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: jitsi-config
+                key: JIGASI_XMPP_PASSWORD
+          - name: JIGASI_SIP_URI
+            value:
+          - name: JIGASI_SIP_PASSWORD
+            value:
+          - name: JIGASI_SIP_SERVER
+            value: sip2sip.info
+          - name: JIGASI_SIP_PORT
+            value: "5060"
+          - name: JIGASI_SIP_TRANSPORT
+            value: UDP
+          - name: JIGASI_BREWERY_MUC
+            value: jigasibrewery
+          - name: JIGASI_PORT_MIN
+            value: "20000"
+          - name: JIGASI_PORT_MAX
+            value: "20050"
+          - name: JIGASI_ENABLE_SDES_SRTP
+            value: "0"
+          - name: JIGASI_SIP_KEEP_ALIVE_METHOD
+            value: OPTIONS
+          - name: JIGASI_HEALTH_CHECK_SIP_URI
+            value: keepalive
+          - name: JIGASI_HEALTH_CHECK_INTERVAL
+            value: "300000"
+          - name: ENABLE_TRANSCRIPTIONS
+            value: "0"
+          - name: JIGASI_TRANSCRIBER_RECORD_AUDIO
+            value: "false"
+          - name: JIGASI_TRANSCRIBER_SEND_TXT
+            value: "false"
+          - name: JIGASI_TRANSCRIBER_ADVERTISE_URL
+            value: "false"
+      serviceAccountName: jitsi
