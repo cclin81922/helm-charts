@@ -1,0 +1,11 @@
+# For Webpack > 5
+# update webpack.config.js
+
+module.exports = {
+    ...
+    resolve: {
+        fallback: {
+            "fs": false
+        },
+    }
+}

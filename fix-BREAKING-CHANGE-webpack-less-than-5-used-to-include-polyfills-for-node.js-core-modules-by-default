@@ -1,0 +1,12 @@
+npm install node-polyfill-webpack-plugin --save-dev
+
+# Add the following to your webpack.config.js:
+
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+
+module.exports = {
+	// Other rules...
+	plugins: [
+		new NodePolyfillPlugin()
+	]
+}
