@@ -55,3 +55,15 @@ npm install react react-dom
 # 9. 初始化 for developing express backend application
 
 # 10. 初始化 for developing react frontend application
+
+# npm initializer
+
+1. create-express-typescript-application 10 months ago  https://www.npmjs.com/package/create-express-typescript-application
+2. create-react-app-ts                   3 months ago   https://www.npmjs.com/package/create-react-app-ts
+
+Try run
+
+```
+npm init express-typescript-application my-package5
+mkdir my-package6 && cd my-package6 && npm init react-app-ts
+```
