@@ -61,7 +61,7 @@ npm install react react-dom
 1. create-express-typescript-application 10 months ago  https://www.npmjs.com/package/create-express-typescript-application
 2. create-react-app-ts                   3 months ago   https://www.npmjs.com/package/create-react-app-ts
 
-Try run exporess-ts
+Try run express-ts
 
 ```
 npm init express-typescript-application my-package5
