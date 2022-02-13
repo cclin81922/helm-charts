@@ -60,10 +60,20 @@ npm install react react-dom
 
 1. create-express-typescript-application 10 months ago  https://www.npmjs.com/package/create-express-typescript-application
 2. create-react-app-ts                   3 months ago   https://www.npmjs.com/package/create-react-app-ts
-
-Try run
+Try run exporess-ts
 
 ```
 npm init express-typescript-application my-package5
-mkdir my-package6 && cd my-package6 && npm init react-app-ts
+cd my-package5
+npm run dev
+curl http://localhost:8080
+```
+
+Try run react-ts
+
+```
+mkdir my-package6 && cd my-package6 && npm init react-app-ts && npm install yarn --legacy-peer-deps
+cd my-package6
+npm run start
+curl http://localhost:8080
 ```
