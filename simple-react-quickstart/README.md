@@ -1,6 +1,11 @@
 ```
 npm init foo simple-react
 
+cp index.html simple-react
+cp like_button.js simple-react
+cp react-dom.development.js simple-react
+cp react.development.js simple-react
+
 cd simple-react
 
 npm install --save-dev http-server
