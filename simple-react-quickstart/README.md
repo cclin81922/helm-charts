@@ -16,3 +16,7 @@ npx http-server -o --cors
 # Note
 
 Can replace `http-server` with `light-server` or `live-server`
+
+# Reference
+
+https://zh-hant.reactjs.org/docs/add-react-to-a-website.html
